@@ -3,7 +3,7 @@ import styles from '../styles/Home.module.css'
 import getConfig from 'next/config'
 
 // Only holds serverRuntimeConfig and publicRuntimeConfig
-const { serverRuntimeConfig, publicRuntimeConfig } = getConfig()
+const { publicRuntimeConfig } = getConfig()
 
 export default function Home({exists}) {
   const getHello = async () => {
@@ -34,11 +34,11 @@ export default function Home({exists}) {
             </tr>
             <tr>
               <td>serverRuntimeConfig.runtimeSecret:</td>
-              <td>{serverRuntimeConfig.runtimeSecret}</td>
+              {/* <td>{serverRuntimeConfig.runtimeSecret}</td> */}
             </tr>
             <tr>
               <td>serverRuntimeConfig.runtimeSitePassword:</td>
-              <td>{serverRuntimeConfig.runtimeSitePassword}</td>
+              {/* <td>{serverRuntimeConfig.runtimeSitePassword}</td> */}
             </tr>
             <tr>
               <td>getInitialProps success:</td>
@@ -55,6 +55,8 @@ export default function Home({exists}) {
 }
 
 export async function getInitialProps() {
+  const { serverRuntimeConfig } = getConfig()
+
   // Do stuff with secrets
   const s1 = serverRuntimeConfig.runtimeSecret
   const s2 = process.env.SITE_ENVIRONMENT
