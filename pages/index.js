@@ -1,9 +1,9 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import getConfig from 'next/config'
+// import getConfig from 'next/config'
 
 // Only holds serverRuntimeConfig and publicRuntimeConfig
-const { publicRuntimeConfig } = getConfig()
+// const { publicRuntimeConfig } = getConfig()
 
 export default function Home({exists}) {
   const getHello = async () => {
@@ -30,7 +30,7 @@ export default function Home({exists}) {
             </tr>
             <tr>
               <td>publicRuntimeConfig.publicRuntimeValue:</td>
-              <td>{publicRuntimeConfig.publicRuntimeValue}</td>
+              {/* <td>{publicRuntimeConfig.publicRuntimeValue}</td> */}
             </tr>
             <tr>
               <td>serverRuntimeConfig.runtimeSecret:</td>
@@ -55,17 +55,17 @@ export default function Home({exists}) {
 }
 
 export async function getInitialProps() {
-  const { serverRuntimeConfig } = getConfig()
+  // const { serverRuntimeConfig } = getConfig()
 
-  // Do stuff with secrets
-  const s1 = serverRuntimeConfig.runtimeSecret
-  const s2 = process.env.SITE_ENVIRONMENT
+  // // Do stuff with secrets
+  // const s1 = serverRuntimeConfig.runtimeSecret
+  // const s2 = process.env.SITE_ENVIRONMENT
 
-  console.log('Get initial props:', s1, s2)
+  // console.log('Get initial props:', s1, s2)
 
   return {
     props: {
-      exists: !!s1 && !!s2,
+      // exists: !!s1 && !!s2,
     }
   }
 }
