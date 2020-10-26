@@ -1,65 +1,57 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
+import getConfig from 'next/config'
+
+// Only holds serverRuntimeConfig and publicRuntimeConfig
+const { serverRuntimeConfig, publicRuntimeConfig } = getConfig()
 
 export default function Home() {
+  const getHello = async () => {
+    const response = await fetch('/api/hello', {
+      method: 'GET'
+    })
+    const result = await response.json()
+
+    console.log('Done!', result)
+  }
+
   return (
     <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+        <div>
+          <table>
+          <tr>
+              <td>process.env.NEXT_PUBLIC_NAME:</td>
+              <td>{process.env.NEXT_PUBLIC_NAME}</td>
+            </tr>
+            <tr>
+              <td>process.env.SITE_ENVIRONMENT:</td>
+              <td>{process.env.SITE_ENVIRONMENT}</td>
+            </tr>
+            <tr>
+              <td>publicRuntimeConfig.publicRuntimeValue:</td>
+              <td>{publicRuntimeConfig.publicRuntimeValue}</td>
+            </tr>
+            <tr>
+              <td>serverRuntimeConfig.runtimeSecret:</td>
+              <td>{serverRuntimeConfig.runtimeSecret}</td>
+            </tr>
+            <tr>
+              <td>serverRuntimeConfig.runtimeSitePassword:</td>
+              <td>{serverRuntimeConfig.runtimeSitePassword}</td>
+            </tr>
+          </table>
         </div>
+        <br />
+        <p>Press the button to see server variables</p>
+        <button onClick={getHello}>Get Hello</button>
       </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
     </div>
   )
+}
+
+export async function getInitialProps() {
+  return {
+    props: {}
+  }
 }
