@@ -5,7 +5,7 @@ import getConfig from 'next/config'
 // Only holds serverRuntimeConfig and publicRuntimeConfig
 const { serverRuntimeConfig, publicRuntimeConfig } = getConfig()
 
-export default function Home() {
+export default function Home({exists}) {
   const getHello = async () => {
     const response = await fetch('/api/hello', {
       method: 'GET'
@@ -40,6 +40,10 @@ export default function Home() {
               <td>serverRuntimeConfig.runtimeSitePassword:</td>
               <td>{serverRuntimeConfig.runtimeSitePassword}</td>
             </tr>
+            <tr>
+              <td>getInitialProps success:</td>
+              <td>{exists}</td>
+            </tr>
           </table>
         </div>
         <br />
@@ -51,7 +55,15 @@ export default function Home() {
 }
 
 export async function getInitialProps() {
+  // Do stuff with secrets
+  const s1 = serverRuntimeConfig.runtimeSecret
+  const s2 = process.env.SITE_ENVIRONMENT
+
+  console.log('Get initial props:', s1, s2)
+
   return {
-    props: {}
+    props: {
+      exists: !!s1 && !!s2,
+    }
   }
 }
